@@ -1,2 +1,6 @@
 rootProject.name = 'arwion'
 
+include 'arwion.infrastructure'
+include 'arwion.domain'
+include 'arwion.security'
+

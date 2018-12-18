@@ -1,0 +1,14 @@
+plugins {
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: springBootSecurityVersion
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: springBootStarterDataJpaVersion
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springBootWebStarterVersion
+    compile group: 'io.jsonwebtoken', name: 'jjwt', version: jsonWebtokenJjwtVersion
+}
