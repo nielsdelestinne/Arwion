@@ -43,6 +43,10 @@ public class User implements UserDetails {
         return this.roles.stream().map(SimpleGrantedAuthority::new).collect(toList());
     }
 
+    public String getId() {
+        return id;
+    }
+
     @Override
     public String getPassword() {
         return password;
@@ -76,4 +80,6 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
 }

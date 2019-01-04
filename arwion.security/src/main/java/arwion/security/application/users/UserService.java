@@ -1,5 +1,6 @@
 package arwion.security.application.users;
 
+import arwion.security.application.exceptions.UsernameNotUniqueException;
 import arwion.security.domain.model.users.User;
 import arwion.security.domain.model.users.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +27,16 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("Username: " + username + " not found"));
     }
 
-    public void registerUser(String username, String saltedAndHashedPassword, List<String> roles) {
+    public String registerUser(String username, String saltedAndHashedPassword, List<String> roles) throws UsernameNotUniqueException{
         AssertUsernameIsUnique(username);
-        userRepository.save(new User(username, saltedAndHashedPassword, roles));
+        return userRepository
+                .save(new User(username, saltedAndHashedPassword, roles))
+                .getId();
     }
 
-    private void AssertUsernameIsUnique(String username) {
+    private void AssertUsernameIsUnique(String username) throws UsernameNotUniqueException{
         if(this.userRepository.findByUsername(username).isPresent()) {
-            throw new IllegalArgumentException("Username already exists");
+            throw new UsernameNotUniqueException(username);
         }
     }
 
