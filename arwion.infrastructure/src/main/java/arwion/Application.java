@@ -8,12 +8,13 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 
-@SpringBootApplication(scanBasePackages = {
-    "arwion.security"
-})
+@SpringBootApplication(
+        scanBasePackages = {"arwion.security"}
+)
 public class Application implements ApplicationRunner {
 
     public static void main(String[] args) {
@@ -21,11 +22,14 @@ public class Application implements ApplicationRunner {
     }
 
     @Autowired
-    ApplicationContext applicationContext;
+    private ApplicationContext applicationContext;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public void run(ApplicationArguments args) {
         UserRepository userRepository = applicationContext.getBean(UserRepository.class);
-        userRepository.save(new User("niels", "{noop}password", List.of("ADMIN")));
+        userRepository.save(new User("niels", passwordEncoder.encode("password"), List.of("ADMIN")));
     }
 }
