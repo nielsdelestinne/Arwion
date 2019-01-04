@@ -53,12 +53,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.PUT, "/api/users/signin").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/users/register").hasAuthority("ADMIN")
-                .antMatchers(HttpMethod.GET, "/api/users/").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/users").hasAuthority("ADMIN")
 
 //                .antMatchers(HttpMethod.GET, "/vehicles/**").permitAll()
 //                .antMatchers(HttpMethod.DELETE, "/vehicles/**").hasRole("ADMIN")
 //                .antMatchers(HttpMethod.GET, "/v1/vehicles/**").permitAll()
-                .anyRequest().authenticated()
+                .anyRequest().denyAll()
                 .and()
                 .apply(new JwtConfigurer(jwtTokenProvider));
     }

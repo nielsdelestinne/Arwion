@@ -40,8 +40,8 @@ public class UserController {
     }
 
     @GetMapping
-    public String hello() {
-        return "Hello!";
+    public String adminAuthorizedOnly() {
+        return "Only authenticated ADMIN (authorized) users can see this";
     }
 
     @PostMapping("/register")
