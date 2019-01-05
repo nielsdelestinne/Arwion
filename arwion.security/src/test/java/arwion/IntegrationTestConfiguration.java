@@ -12,6 +12,11 @@ import java.util.List;
 @SpringBootApplication(scanBasePackages = {"arwion.security"})
 public class IntegrationTestConfiguration {
 
+    public static final String FAKE_NORMAL_USER_USERNAME = "FakeNormalUser";
+    public static final String FAKE_ADMIN_USER_PASSWORD = "FakeAdminPassword";
+    public static final String FAKE_NORMAL_USER_PASSWORD = "FakeNormalPassword";
+    public static final String FAKE_ADMIN_USER_USERNAME = "FakeAdminUser";
+
     @Autowired
     private UserRepository userRepository;
 
@@ -21,9 +26,9 @@ public class IntegrationTestConfiguration {
     @PostConstruct
     public void persistDummyUsers() {
         userRepository
-                .save(new User("FakeAdminUser", passwordEncoder.encode("FakeAdminPassword"), List.of("ADMIN")));
+                .save(new User(FAKE_ADMIN_USER_USERNAME, passwordEncoder.encode(FAKE_ADMIN_USER_PASSWORD), List.of("ADMIN", "USER")));
         userRepository
-                .save(new User("FakeNormalUser", passwordEncoder.encode("FakeNormalPassword"), List.of("USER")));
+                .save(new User(FAKE_NORMAL_USER_USERNAME, passwordEncoder.encode(FAKE_NORMAL_USER_PASSWORD), List.of("USER")));
     }
 
 }
